@@ -3,8 +3,7 @@
     <link type="text/css" rel="stylesheet" href="style.css">
     <script type="text/javascript" src="d3.js"></script>
 
-    <script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
-    </script>
+
     <script type="text/javascript">
     </script>
 
@@ -14,25 +13,18 @@
 <div class="nytg-navBar" style="left:20px;">
     <ul class="nytg-navigation clearfix" style="list-style-type:none">
         <li id="federalButton" class="selected">Food Prices</li>
-        <li id="stateButton"></li>
-        <li id="localButton"></li>
     </ul>
 </div>
 
 
 <div id="footer" style="position:absolute; right:20px; top:20px;">
-    2013 Federal Budget
+    Daily Commodity Prices
     <div class="hint">
-        click on a circle for a more granular view.<br>
-        click on "Federal", "State", or "Local" buttons to see spending at those levels.
     </div>
 </div>
 
 
 <div style="position:absolute; left:5px; top:23px;">
-    <a href="http://www.brightpointinc.com">
-        <img src="../images/bp_mark.png">
-    </a>
 </div>
 
 
@@ -126,18 +118,18 @@
 
 //http://www.usgovernmentspending.com/budget_gs.php
 
-    d3.csv("Result.csv", function(csv) {
-
+    //d3.json("http://data.gov.in/api/datastore/resource.json?resource_id=9ef84268-d588-465a-a308-a864a43d0070&api-key=7be03c5a54ab3a70dd0728e8faef940b", function(csv) {
+	d3.csv("download.csv", function(csv) {
         //Category > Value Stream > Project > Production Order
-
+		
         var nest = d3.nest()
-                .key(function(d) { return d.State; })
-                .key(function(d) { return d.District; })
-                .key(function(d) { return d.Market; })
-                .key(function(d) { return d.Commodity; })
-                .key(function(d) { return d.Variety; })
+                .key(function(d) { return d.state; })
+                .key(function(d) { return d.district; })
+                .key(function(d) { return d.market; })
+                .key(function(d) { return d.commodity; })
+                .key(function(d) { return d.variety; })
                 .entries(csv);
-
+        //var nest = d3.entries(csv.records) 
         root={};
         root.values=nest;
         root.x0 = h / 2;
